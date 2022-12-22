@@ -77,6 +77,7 @@ class ToDoListViewController: UITableViewController {
         cell.accessoryType = item.done ? .checkmark : .none  // ternory op
         return cell
     }
+    
     //tableview delegate methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
