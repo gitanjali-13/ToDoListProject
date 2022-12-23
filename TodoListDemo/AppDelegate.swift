@@ -7,6 +7,9 @@
 
 import UIKit
 import CoreData
+import RealmSwift
+
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,6 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("Did finish with options")
         // Override point for customization after application launch.
+        
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+        let data = Data()
+        data.name = "Angelina"
+        data.age = 20
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.add(data)
+            }
+        }catch {
+            print("Error handling new realm \(error)")
+        }
+        
+        
         return true
     }
 
@@ -28,9 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    
     }
 
     // MARK: - Core Data stack
@@ -55,8 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
